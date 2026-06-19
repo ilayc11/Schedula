@@ -1,0 +1,362 @@
+.app-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(22px);
+  border-right: 1px solid var(--color-border-subtle);
+  padding: 24px 20px;
+}
+
+.main-content {
+  padding: clamp(20px, 3vw, 48px);
+  /* padding: 40px 80px; */
+  overflow-y: auto;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 28px 32px;
+  margin: 0 0 24px;
+  max-width: none;
+}
+
+  .button {
+    min-width: 200px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .button-primary,
+.button-secondary {
+  background: #1c304b;
+  color: #e2e5ee;
+  border-color: #bcd9ff;
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  background: #223a5c;
+}
+
+.system-actions {
+  margin-bottom: 32px;
+}
+
+.schedule-published-card {
+  margin: 16px 0;
+}
+
+.schedule-published-text {
+  margin: 8px 0 12px;
+}
+
+
+
+
+/* .button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.button-primary:hover {
+  filter: brightness(1.05);
+} */
+
+/* Adding padding between primary and secondary buttons */
+.button-primary + .button-secondary,
+.button-secondary + .button-primary {
+  margin-left: 8px; /* Adjust the value as needed */
+}
+
+.main-content.secretary-dashboard-page {
+  position: relative;
+  min-height: 100%;
+  padding: clamp(32px, 4vw, 64px);
+  background:
+    radial-gradient(circle at top right, rgba(183, 226, 213, 0.55), transparent 34%),
+    radial-gradient(circle at 18% 10%, rgba(190, 219, 255, 0.55), transparent 30%),
+    linear-gradient(135deg, #eef6ff 0%, #f8fbff 45%, #f4fbf3 100%);
+}
+
+.secretary-dashboard-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(28, 48, 75, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.25;
+}
+
+.dashboard-hero {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto 28px;
+}
+
+.dashboard-eyebrow {
+  margin: 0 0 8px;
+  color: #4f6f97;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dashboard-hero h1 {
+  margin: 0;
+  color: #0f1d33;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.dashboard-subtitle {
+  margin: 10px 0 0;
+  color: #60708a;
+  font-size: 16px;
+}
+
+.dashboard-stack {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.secretary-dashboard-page .card {
+  border: 1px solid rgba(221, 231, 245, 0.9);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 60px rgba(31, 54, 86, 0.11);
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 26px;
+}
+
+.secretary-dashboard-page .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 70px rgba(31, 54, 86, 0.14);
+  transition: 0.2s ease;
+}
+
+.secretary-dashboard-page .button,
+.secretary-dashboard-page .button-primary,
+.secretary-dashboard-page .button-secondary {
+  border-radius: 999px;
+  background: #1c304b;
+  color: #f7f9fc;
+  box-shadow: 0 12px 26px rgba(28, 48, 75, 0.22);
+}
+
+.secretary-dashboard-page .button:hover,
+.secretary-dashboard-page .button-primary:hover,
+.secretary-dashboard-page .button-secondary:hover {
+  background: #243d5f;
+  transform: translateY(-1px);
+}
+.system-status-polished {
+  padding: 36px 38px !important;
+}
+
+.status-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.status-card-header .system-title {
+  margin: 0;
+  font-size: 24px;
+  color: #101a2d;
+}
+
+.status-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.status-icon-blue {
+  background: linear-gradient(135deg, #dff1ff, #e8f8f5);
+  color: #2176c9;
+}
+
+.status-icon-soft-blue {
+  background: #e4f1ff;
+  color: #2563eb;
+}
+
+.status-icon-soft-green {
+  background: #ddf7e6;
+  color: #16a34a;
+}
+
+.status-icon-soft-purple {
+  background: #efe3ff;
+  color: #7c3aed;
+}
+
+.system-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.system-status-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.system-status-item:not(:last-child) {
+  border-right: 1px solid #e3eaf4;
+}
+
+.status-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #60708a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.system-status-item strong {
+  display: block;
+  color: #17233a;
+  font-size: 20px;
+}
+
+.system-status-item p {
+  margin: 6px 0 0;
+  color: #53647d;
+}
+
+.status-badge {
+  display: inline-flex !important;
+  width: fit-content;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #d9f8e5;
+  color: #159947 !important;
+  font-size: 14px !important;
+}
+
+/* Lecturer dashboard buttons */
+.lecturer-actions-polish .system-actions {
+  display: flex;
+  gap: 14px;
+  margin: 8px 0 34px;
+  flex-wrap: wrap;
+}
+
+.lecturer-actions-polish .button {
+  min-width: 250px;
+  height: 54px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #172b49, #243f67);
+  color: #ffffff;
+  border: 1px solid rgba(188, 217, 255, 0.35);
+  box-shadow: 0 16px 34px rgba(28, 48, 75, 0.2);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.lecturer-actions-polish .button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #203a60, #2b4d7c);
+  box-shadow: 0 20px 42px rgba(28, 48, 75, 0.26);
+}
+
+/* My Courses polished card */
+.lecturer-courses-section .card {
+  padding: 34px 38px !important;
+  border: 1px solid rgba(221, 231, 245, 0.95);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  box-shadow: 0 22px 60px rgba(31, 54, 86, 0.11);
+}
+
+.lecturer-courses-section .card h2 {
+  margin: 0 0 20px;
+  color: #101a2d;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+
+.lecturer-courses-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.lecturer-courses-section li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border: 1px solid #e7edf6;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  color: #17233a;
+  font-size: 18px;
+  font-weight: 650;
+  box-shadow: 0 10px 26px rgba(31, 54, 86, 0.05);
+}
+
+.lecturer-courses-section li::before {
+  content: counter(course-counter);
+  counter-increment: course-counter;
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: #edf3ff;
+  color: #2563eb;
+  font-weight: 800;
+}
+
+.lecturer-courses-section ul {
+  counter-reset: course-counter;
+}

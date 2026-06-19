@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+.env
+.venv/
+.git/
+.gitignore
+node_modules/
+**/__pycache__
+tests/
+.pytest_cache/
+README.md
+STANDARDS.md
+wrap_test_result.json

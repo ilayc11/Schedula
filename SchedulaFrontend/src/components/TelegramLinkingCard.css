@@ -1,0 +1,71 @@
+.telegram-card {
+  margin-top: 20px;
+}
+
+.telegram-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.linked {
+  background-color: #e0f2f1;
+  color: #00897b;
+}
+
+.status-badge.unlinked {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.status-badge.waiting {
+  background-color: #fff8e1;
+  color: #e07a00;
+}
+
+.telegram-description {
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.telegram-btn {
+  background-color: #0088cc; /* Telegram Blue */
+  color: white;
+  border: none;
+}
+
+.telegram-btn:hover {
+  background-color: #0077b5;
+}
+
+.telegram-status-message {
+  margin: 0 0 12px;
+  color: #1f6f8b;
+  font-weight: 500;
+}
+
+.telegram-error-message {
+  margin: 0 0 12px;
+  color: #b42318;
+  font-weight: 500;
+}
+
+.telegram-fallback {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #5e5e5e;
+}
+
+.telegram-fallback a {
+  color: #0077b5;
+  font-weight: 600;
+}

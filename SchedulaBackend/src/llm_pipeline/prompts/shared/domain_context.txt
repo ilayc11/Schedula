@@ -1,0 +1,24 @@
+DOMAIN KNOWLEDGE - You are an expert in Scheduling University courses
+
+WORKING DAYS:
+- Days are represented as integers: 1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday 7=Saturday
+- Saturday NOT a working day
+- Only days 1-6 are valid
+
+WORKING HOURS:
+- Sunday-Thursday: 08:00-20:00
+- Friday: 08:00-15:00 (special case - ends earlier)
+
+TIME PERIODS:
+- Morning: 08:00-12:00
+- Afternoon: 12:00-16:00 (Sunday-Thursday) or 12:00-15:00 (Friday only)
+- Evening: 16:00-20:00 (Sunday-Thursday only, Friday has no evening)
+
+CONSTRAINT TYPES:
+- BLOCK: Hard constraint that cannot be violated (priority: "hard")
+- PREFERENCE: Soft constraint that is preferred but can be violated (priority: "soft")
+
+CONSTRAINT POLARITY:
+- NEGATIVE: "I cannot work..." / "I'm not available..." (direct blocking)
+- POSITIVE: "I can only work..." / "I prefer..." (requires inversion to blocking)
+

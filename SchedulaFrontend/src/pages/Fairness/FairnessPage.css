@@ -1,0 +1,436 @@
+/* src/pages/Fairness/FairnessPage.css */
+
+.fairness-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 18px;
+}
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.muted-text {
+  opacity: 0.75;
+}
+
+.fairness-selected-name {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.fairness-parsed {
+  opacity: 0.85;
+}
+
+.fairness-hard-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.error-banner {
+  background-color: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.35);
+  color: #b02a37;
+  margin-bottom: 12px;
+}
+
+.fairness-section {
+  margin-top: 16px;
+}
+
+.fairness-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.badge-broken-hard {
+  background: rgba(220, 53, 69, 0.15);
+  color: #b02a37;
+  border: 1px solid rgba(220, 53, 69, 0.35);
+}
+
+.badge-broken-soft {
+  background: rgba(255, 159, 10, 0.18);
+  color: #a3631a;
+  border: 1px solid rgba(255, 159, 10, 0.4);
+}
+
+.badge-satisfied {
+  background: rgba(40, 167, 69, 0.15);
+  color: #1f7a3a;
+  border: 1px solid rgba(40, 167, 69, 0.35);
+}
+
+.badge-hard {
+  background: rgba(220, 53, 69, 0.12);
+  color: #b02a37;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.badge-soft {
+  background: rgba(13, 110, 253, 0.12);
+  color: #0a58ca;
+  border: 1px solid rgba(13, 110, 253, 0.3);
+}
+
+.severity-row-hard {
+  color: #b02a37;
+  font-weight: 600;
+}
+
+@media (max-width: 980px) {
+  .fairness-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Modern Fairness Dashboard ===== */
+
+.fairness-layout {
+  grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.85fr);
+  gap: 18px;
+}
+
+.fairness-top-card {
+  margin-bottom: 18px;
+  padding: 22px 24px;
+  border-radius: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+}
+
+.fairness-top-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.fairness-top-filters .filter-field {
+  min-width: 0;
+}
+
+.fairness-top-filters .filter-field .search-input,
+.fairness-top-filters .react-datepicker-wrapper,
+.fairness-top-filters .react-datepicker__input-container,
+.fairness-top-filters .react-datepicker__input-container input {
+  width: 140px;
+  max-width: 140px;
+}
+
+.fairness-latest {
+  display: grid;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.fairness-latest span,
+.filter-field label {
+  color: #4b5870;
+  opacity: 1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fairness-latest strong {
+  color: #6d5de7;
+  font-size: 15px;
+}
+
+.fairness-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(105px, 1fr));
+  border: 1px solid #e7edf5;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.fairness-stat {
+  min-width: 105px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-right: 1px solid #e7edf5;
+}
+
+.fairness-stat:last-child {
+  border-right: none;
+}
+
+.fairness-stat svg {
+  color: #6d5de7;
+  background: #f3e8ff;
+  border-radius: 14px;
+  padding: 9px;
+  width: 42px;
+  height: 42px;
+}
+
+.fairness-stat-danger svg {
+  color: #db2777;
+  background: #fce7f3;
+}
+
+.fairness-stat-good svg {
+  color: #16a34a;
+  background: #dcfce7;
+}
+
+.fairness-stat strong {
+  display: block;
+  color: #111827;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.fairness-stat span {
+  display: block;
+  margin-top: 4px;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fairness-layout > .card {
+  padding: 24px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+}
+
+.card-title {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  color: #101827;
+}
+
+.fairness-lecturer-tools {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.fairness-search-wrap {
+  height: 48px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-radius: 14px;
+  border: 1px solid #dbe3ef;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+}
+
+.fairness-search-wrap svg {
+  color: #64748b;
+}
+
+.fairness-search-wrap input {
+  border: none;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  width: 100%;
+  box-shadow: none;
+}
+
+.fairness-hard-toggle {
+  height: 48px;
+  margin: 0;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid #dbe3ef;
+  background: rgba(255, 255, 255, 0.88);
+  font-weight: 800;
+  color: #334155;
+}
+
+.fairness-hard-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #7c6ee6;
+}
+
+.fairness-table-wrap {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #e7edf5;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.fairness-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fairness-table th {
+  padding: 16px 14px;
+  text-align: left;
+  color: #4b5870;
+  font-size: 13px;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid #e7edf5;
+}
+
+.fairness-table td {
+  padding: 16px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.fairness-table tbody tr {
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.fairness-table tbody tr:hover {
+  background: rgba(248, 251, 255, 0.92);
+}
+
+.fairness-lecturer-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fairness-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fairness-avatar-danger {
+  background: #fce7f3;
+  color: #db2777;
+  border-color: #fbcfe8;
+}
+
+.badge {
+  min-width: 26px;
+  text-align: center;
+  padding: 4px 9px;
+  font-weight: 900;
+}
+
+.fairness-score-cell {
+  display: grid;
+  gap: 7px;
+  min-width: 70px;
+}
+
+.fairness-score-bar {
+  width: 56px;
+  height: 6px;
+  border-radius: 999px;
+  display: block;
+}
+
+.fairness-score-good {
+  background: #22c55e;
+}
+
+.fairness-score-warning {
+  background: #f59e0b;
+}
+
+.fairness-empty-state {
+  min-height: 390px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  color: #667085;
+}
+
+.fairness-empty-state svg {
+  color: #8b7cf6;
+  background: #f3e8ff;
+  padding: 18px;
+  border-radius: 24px;
+  margin-bottom: 18px;
+}
+
+.fairness-empty-state h3 {
+  margin: 0 0 10px;
+  color: #101827;
+  font-size: 22px;
+}
+
+.fairness-empty-state p {
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+@media (max-width: 1120px) {
+  .fairness-top-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .fairness-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fairness-lecturer-tools {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .fairness-layout {
+    grid-template-columns: 1fr;
+  }
+}

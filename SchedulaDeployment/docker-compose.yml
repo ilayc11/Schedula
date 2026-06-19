@@ -1,0 +1,233 @@
+name: Schedula
+services:
+  postgres:
+    image: postgres:17.7
+    container_name: schedula-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: schedula
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: schedula-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+    ports:
+      - "5672:5672"   # AMQP port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q check_port_connectivity"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 15s
+
+  # Backend CPU version (university provider)
+  backend:
+    image: schedula-backend-cpu
+    build:
+      context: ../SchedulaBackend
+      dockerfile: Dockerfile
+    container_name: schedula-backend-cpu
+    profiles: ["cpu"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/schedula
+      DATABASE_POOL_MIN_SIZE: 5
+      DATABASE_POOL_MAX_SIZE: 10
+      RABBITMQ_URL: amqp://rabbitmq:rabbitmq@rabbitmq:5672/
+
+      # New CPU profile provider:
+      LLM_PROVIDER: university
+      UNIVERSITY_URL: https://132.73.84.84
+      UNIVERSITY_VERIFY_SSL: "false"
+      OLLAMA_MODEL: mistral:latest
+      APP_NAME: Schedula Backend
+      DEBUG: "false"
+      SECRET_KEY: 631b209e0e661ede399d3e15073ff3ce87b377180bd338c755b0683339b534e5
+      NOTIFICATION_SERVICE_BASE_URL: ${NOTIFICATION_SERVICE_BASE_URL:-http://notification:8000}
+      NOTIFICATION_QUEUE_NAME: ${NOTIFICATION_QUEUE_NAME:-notifications_queue}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # Backend GPU version (uses full Ollama model)
+  backend-gpu:
+    image: schedula-backend-gpu
+    build:
+      context: ../SchedulaBackend
+      dockerfile: Dockerfile
+    container_name: schedula-backend-gpu
+    profiles: ["gpu"]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/schedula
+      DATABASE_POOL_MIN_SIZE: 5
+      DATABASE_POOL_MAX_SIZE: 10
+      RABBITMQ_URL: amqp://rabbitmq:rabbitmq@rabbitmq:5672/
+      OLLAMA_URL: http://ollama-gpu:11434
+      OLLAMA_MODEL: qwen3:4b-instruct
+      APP_NAME: Schedula Backend
+      DEBUG: "false"
+      SECRET_KEY: 631b209e0e661ede399d3e15073ff3ce87b377180bd338c755b0683339b534e5
+      NOTIFICATION_SERVICE_BASE_URL: ${NOTIFICATION_SERVICE_BASE_URL:-http://notification:8000}
+      NOTIFICATION_QUEUE_NAME: ${NOTIFICATION_QUEUE_NAME:-notifications_queue}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  solver:
+    image: schedula-solver
+    build:
+      context: ./solver
+      dockerfile: Dockerfile
+    container_name: schedula-solver
+    restart: unless-stopped
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:rabbitmq@rabbitmq:5672/
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/schedula
+      MUS_MAX_ITERATIONS: 100
+      MUS_MAX_WALL_TIME: 300.0
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  # Ollama with NVIDIA GPU support (uses full model)
+  ollama-gpu:
+    build:
+      context: ./ollama
+      dockerfile: Dockerfile
+    container_name: schedula-ollama
+    profiles: ["gpu"]
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_KEEP_ALIVE=-1
+      - OLLAMA_HOST=0.0.0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    entrypoint: ["/bin/bash", "-c", "/bin/ollama serve & pid=$!; until curl -s http://localhost:11434/api/tags > /dev/null; do echo 'Waiting for Ollama...'; sleep 2; done; echo 'Pulling qwen3:4b-instruct...'; ollama pull qwen3:4b-instruct; echo 'Loading qwen3:4b-instruct...'; curl -s http://localhost:11434/api/generate -d '{\"model\":\"qwen3:4b-instruct\",\"prompt\":\"warmup\",\"stream\":false}' > /dev/null 2>&1; wait $pid"]
+
+
+  # notification:
+  #   image: schedula-notification
+  #   build:
+  #     context: ./notification_service
+  #     dockerfile: Dockerfile
+  #   container_name: schedula-notification
+  #   restart: unless-stopped
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:postgres@postgres:5432/schedula
+  #     DATABASE_POOL_MIN_SIZE: ${NOTIFICATION_DATABASE_POOL_MIN_SIZE:-2}
+  #     DATABASE_POOL_MAX_SIZE: ${NOTIFICATION_DATABASE_POOL_MAX_SIZE:-10}
+  #     RABBITMQ_URL: amqp://rabbitmq:rabbitmq@rabbitmq:5672/
+  #     TELEGRAM_BOT_NAME: ${TELEGRAM_BOT_NAME:-Schedula_BotBot}
+  #     TELEGRAM_LINK_TOKEN_TTL_SECONDS: ${TELEGRAM_LINK_TOKEN_TTL_SECONDS:-900}
+  #     APPRISE_URLS: ${APPRISE_URLS:-tgram://8660532706:AAFBpxOsJ3N7nB9-DG3X8Lw9DI3aPltE80E/0}
+  #     EMAIL_SENDER_USERNAME: ${EMAIL_SENDER_USERNAME:-schedulaemail}
+  #     EMAIL_SENDER_APP_PASSWORD: ${EMAIL_SENDER_APP_PASSWORD:-rike xwfj kzxo macw}
+  #     EMAIL_SENDER_DOMAIN: ${EMAIL_SENDER_DOMAIN:-gmail.com}
+  #     EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST:-smtp.gmail.com}
+  #     EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT:-587}
+  #     EMAIL_SMTP_MODE: ${EMAIL_SMTP_MODE:-starttls}
+  #     EMAIL_FROM_ADDRESS: ${EMAIL_FROM_ADDRESS:-}
+  #     EMAIL_FROM_NAME: ${EMAIL_FROM_NAME:-Schedula}
+  #   depends_on:
+  #     rabbitmq:
+  #       condition: service_healthy
+  #     postgres:
+  #       condition: service_healthy
+  #   ports:
+  #     - "8001:8000"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 256M
+
+  frontend:
+    image: schedula-frontend
+    build:
+      context: ../SchedulaFrontend
+      dockerfile: Dockerfile
+    container_name: schedula-frontend-cpu
+    profiles: ["cpu"]
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_started
+
+  frontend-gpu:
+    image: schedula-frontend
+    build:
+      context: ../SchedulaFrontend
+      dockerfile: Dockerfile
+    container_name: schedula-frontend-gpu
+    profiles: ["gpu"]
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend-gpu:
+        condition: service_started
+
+
+volumes:
+  pgdata:
+  rabbitmq_data:
+  ollama_data:

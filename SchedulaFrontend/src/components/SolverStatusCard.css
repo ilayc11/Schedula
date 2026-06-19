@@ -1,0 +1,260 @@
+/* src/components/SolverStatusCard.css */
+
+.solver-status-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.solver-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #1a1a2e);
+  margin: 0 0 16px 0;
+}
+
+.solver-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.solver-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.solver-icon-success {
+  color: #22c55e;
+  background: #dcfce7;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.solver-icon-failed {
+  color: #ef4444;
+  background: #fee2e2;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.solver-message {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text-primary, #1a1a2e);
+}
+
+.solver-success-message {
+  color: #16a34a;
+}
+
+.solver-failed-message {
+  color: #dc2626;
+}
+
+.solver-hint {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #64748b);
+  margin: 0;
+  max-width: 360px;
+}
+
+.solver-timestamp {
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary, #94a3b8);
+  margin: 4px 0 0;
+}
+
+/* Loading states */
+.solver-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.solver-spinner,
+.solver-spinner-large {
+  border: 3px solid #e2e8f0;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.solver-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.solver-spinner-large {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Processing state */
+.solver-processing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.solver-processing-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.solver-polling-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary, #94a3b8);
+  margin: 8px 0 0;
+}
+
+.polling-dot {
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Conflict details */
+.solver-conflicts {
+  width: 100%;
+  text-align: left;
+  margin: 12px 0;
+  padding: 16px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+}
+
+.conflicts-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #991b1b;
+  margin: 12px 0 8px 0;
+}
+
+.conflicts-title:first-child {
+  margin-top: 0;
+}
+
+.solver-failure-explanation {
+  font-size: 0.88rem;
+  color: #7f1d1d;
+  margin: 0 0 12px 0;
+  line-height: 1.45;
+}
+
+.conflicts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conflict-item {
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border-left: 3px solid #ef4444;
+}
+
+.conflict-text {
+  color: #1f2937;
+  font-style: italic;
+}
+
+.conflict-lecturer {
+  color: #6b7280;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+/* Actions */
+.solver-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Error state */
+.solver-error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.solver-error-content p {
+  color: #dc2626;
+  margin: 0;
+}
+
+/* Status card variants - subtle background tints */
+.solver-status-pending {
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+  border: 1px solid #bfdbfe;
+}
+
+.solver-status-solved {
+  background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+  border: 1px solid #bbf7d0;
+}
+
+.solver-status-failed {
+  background: linear-gradient(135deg, #fef2f2 0%, #f8fafc 100%);
+  border: 1px solid #fecaca;
+}
+
+.solver-status-none {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+}
+
+.solver-status-error {
+  background: linear-gradient(135deg, #fff7ed 0%, #f8fafc 100%);
+  border: 1px solid #fed7aa;
+}
+

@@ -1,0 +1,184 @@
+/**
+ * StageProgressIndicator Styles
+ */
+
+.stage-progress-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  min-width: 200px;
+}
+
+.stage-progress-indicator.fallback {
+  padding: 8px 16px;
+}
+
+/* Stage header with icon and text */
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-icon {
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.stage-text {
+  font-size: 0.9rem;
+  color: var(--text-primary, #333);
+  flex: 1;
+}
+
+/* Animated dots */
+.stage-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 4px;
+}
+
+.stage-dots span {
+  width: 4px;
+  height: 4px;
+  background-color: var(--primary-color, #4a90d9);
+  border-radius: 50%;
+  animation: stageDotPulse 1.4s ease-in-out infinite;
+}
+
+.stage-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.stage-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stage-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes stageDotPulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Progress bar */
+.stage-progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: var(--border-color, #e0e0e0);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stage-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color, #4a90d9), var(--primary-light, #6aa8e8));
+  border-radius: 2px;
+  transition: width 0.3s ease-out;
+}
+
+.stage-progress-indicator.complete .stage-progress-bar {
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
+}
+
+.stage-progress-indicator.error .stage-progress-bar {
+  background: linear-gradient(90deg, #f44336, #ef5350);
+}
+
+/* Stage indicator dots */
+.stage-indicator-dots {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-color, #e0e0e0);
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.past {
+  background-color: var(--primary-color, #4a90d9);
+}
+
+.indicator-dot.current {
+  background-color: var(--primary-color, #4a90d9);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.3);
+  animation: currentDotPulse 1.5s ease-in-out infinite;
+}
+
+.indicator-dot.complete {
+  background-color: #4caf50;
+}
+
+@keyframes currentDotPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(74, 144, 217, 0.1);
+  }
+}
+
+/* Fallback typing dots (matches existing chat style) */
+.stage-progress-indicator.fallback .typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stage-progress-indicator.fallback .typing-dots span {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-secondary, #666);
+  border-radius: 50%;
+  animation: typingDotBounce 1.4s ease-in-out infinite;
+}
+
+.stage-progress-indicator.fallback .typing-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.stage-progress-indicator.fallback .typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stage-progress-indicator.fallback .typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingDotBounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Status-specific styles */
+.stage-progress-indicator.connecting .stage-text {
+  color: var(--text-secondary, #666);
+}
+
+.stage-progress-indicator.error .stage-text {
+  color: #f44336;
+}
+
+.stage-progress-indicator.complete .stage-text {
+  color: #4caf50;
+}

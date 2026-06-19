@@ -1,0 +1,49 @@
+.st-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.18);
+  backdrop-filter: blur(4px);
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.st-card {
+  width: min(460px, 92vw);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-soft);
+  border-radius: 18px;
+  padding: 16px 16px 14px;
+}
+
+.st-title {
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--color-text-main);
+}
+
+.st-message {
+  margin-top: 10px;
+  color: var(--color-text-main);
+  line-height: 1.45;
+}
+
+.st-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.st-success {
+  border-color: rgba(15, 118, 110, 0.22);
+}
+
+.st-error {
+  border-color: rgba(220, 38, 38, 0.22);
+}
+
+.st-info {
+  border-color: rgba(37, 99, 235, 0.20);
+}

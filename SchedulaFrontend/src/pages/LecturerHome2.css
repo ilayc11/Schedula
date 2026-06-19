@@ -1,0 +1,106 @@
+/* כותרת ראשית */
+.dashboard-title {
+  margin: 0 0 4px;
+  font-size: 1.85rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.dashboard-subtitle {
+  margin: 0 0 28px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* לייאאוט לדף נחיתה 2 בלי סיידבר */
+.home2-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.home2-content {
+  width: 100%;
+  max-width: 1100px;
+  padding: 40px 32px 60px;
+  margin: 0 auto;
+}
+
+/* גריד האריחים */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* כרטיס (Tile) */
+.tile-card {
+  border: none;
+  border-radius: 22px;
+  padding: 28px 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: right;
+  color: #222; /* טקסט כהה לפסטל */
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.tile-card:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.18);
+}
+
+/* צבעי רקע פסטל לפי הפלטה שהבאת */
+.tile-blue {
+  background: #C4DCFF;
+}
+
+.tile-green {
+  background: #D4E9D8;
+}
+
+.tile-purple {
+  background: #EBCEFF;
+}
+
+.tile-yellow {
+  background: #FFDFBD;
+}
+
+/* אייקון */
+.tile-icon {
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+}
+
+/* טקסטים */
+.tile-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tile-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.95;
+  line-height: 1.35;
+}
+
+/* מסכים קטנים */
+@media (max-width: 900px) {
+  .home2-content {
+    padding: 32px 16px 40px;
+  }
+
+  .tile-grid {
+    grid-template-columns: 1fr;
+  }
+}

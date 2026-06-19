@@ -1,0 +1,201 @@
+/* src/components/WeeklyScheduleGrid.css */
+.week-wrap {
+  margin-top: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: 90px repeat(6, 1fr);
+  grid-template-rows: 44px auto;
+  background: rgba(0,0,0,0.02);
+}
+
+.corner {
+  grid-column: 1;
+  grid-row: 1;
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-right: 2px solid rgba(0,0,0,0.22);
+  background: rgba(255,255,255,0.7);
+}
+.day-header:last-child {
+  border-right: none;
+}
+
+.time-col {
+  grid-column: 1;
+  grid-row: 2;
+  background: rgba(255,255,255,0.6);
+  border-right: 1px solid rgba(0,0,0,0.08);
+}
+
+.time-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+  font-size: 12px;
+  opacity: 0.75;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  box-sizing: border-box;
+}
+
+.day-col {
+  position: relative;
+  grid-row: 2;
+  background: rgba(255,255,255,0.6);
+  border-right: 2px solid rgba(0,0,0,0.22);
+
+  /* grid lines */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.06) 0px,
+      rgba(0,0,0,0.06) 1px,
+      transparent 1px,
+      transparent 90px
+    );
+}
+.day-col:last-child {
+  border-right: none;
+}
+
+.day-lines {
+  position: absolute;
+  inset: 0;
+}
+
+.hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+
+.event {
+  position: absolute;
+  border-radius: 12px;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-left: 4px solid rgba(59, 130, 246, 0.7);
+  background: rgba(120, 170, 255, 0.22);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.event-title {
+  font-weight: 800;
+  font-size: 17.5px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.event-meta {
+  font-size: 13px;
+  opacity: 0.7;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.event-meta + .event-meta {
+  margin-top: 2px;
+}
+
+.event-time {
+  font-size: 12px;
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.event-lecturer {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 12px;
+  opacity: 0.85;
+  text-align: center;
+}
+/* ── Add these rules to WeeklyScheduleGrid.css ── */
+
+/* Consistent minimum height for event cards without overflowing the slot */
+.event {
+  min-height: 36px;
+  overflow: hidden;
+}
+/* Visual indication for conflicting events */
+.event--conflict {
+  border: 2px solid #e53e3e;
+  background-color: #fff5f5;
+  box-shadow: 0 0 0 1px #e53e3e;
+}
+
+/* Small badge inside conflicting event cards */
+.event-conflict-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #e53e3e;
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Overlapping sessions: side-by-side lanes ── */
+
+/* Clickable event cards */
+.event--clickable {
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+}
+
+.event--clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+  filter: brightness(1.02);
+}
+
+.event--clickable:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.8);
+  outline-offset: 1px;
+}
+
+/* When a slot is split into multiple lanes the cards get narrow, so
+   tighten padding and type to keep them readable. */
+.event--narrow {
+  padding: 6px 7px;
+}
+
+.event--narrow .event-title {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.event--narrow .event-meta {
+  font-size: 11px;
+}
+
+.event--narrow .event-time {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.event--narrow .event-lecturer {
+  margin-top: 3px;
+  font-size: 11px;
+}

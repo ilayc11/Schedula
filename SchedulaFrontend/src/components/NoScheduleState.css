@@ -1,0 +1,37 @@
+/* src/components/NoScheduleState.css */
+.no-schedule {
+  margin-top: 32px;
+  width: min(90%, 900px);
+  padding: 56px 64px;
+  border-radius: 24px;
+  border: 2px dashed rgba(0,0,0,0.14);
+  text-align: center;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.no-schedule:hover {
+  border-color: rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.no-schedule-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+  letter-spacing: -0.5px;
+  margin-bottom: 2px;
+}
+
+.no-schedule-text {
+  margin: 12px auto 0;
+  max-width: 360px;
+  opacity: 0.7;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.75);
+  font-weight: 400;
+}
