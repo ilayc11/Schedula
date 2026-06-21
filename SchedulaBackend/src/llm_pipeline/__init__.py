@@ -2,7 +2,7 @@
 LLM Pipeline for constraint processing - integrated from model_llm service
 """
 from .pipeline import ConstraintProcessingPipeline
-from .llm import OllamaLLM, GroqLLM, UniversityLLM, LLMInterface
+from .llm import OllamaLLM, UniversityLLM, LLMInterface
 from .output import CSPOutputLogger
 from .models import (
     AtomicConstraint,
