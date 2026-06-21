@@ -15,7 +15,6 @@ from .models import (
 __all__ = [
     'ConstraintProcessingPipeline',
     'OllamaLLM',
-    'GroqLLM',
     'UniversityLLM',
     'LLMInterface',
     'CSPOutputLogger',
